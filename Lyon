@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lyon – Aviator Predictor (Free)</title>
+  <style>
+    body {
+      background: #0d1117;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      color: #00ffcc;
+      text-align: center;
+      margin: 20px 0 5px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #ffcc00;
+      margin-bottom: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .predict-section, .iframe-section {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+    }
+    input, button {
+      padding: 12px;
+      margin: 6px 0;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #ffcc00;
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 12px;
+      display: none;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px 10px;
+      gap: 10px;
+    }
+    .links button {
+      background: #1f6feb;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+    }
+    .modal, .code-overlay {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content, .code-content {
+      background-color: #1e1e1e;
+      margin: 10% auto;
+      padding: 30px 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .modal-content h3, .code-content h3 {
+      color: #ff3333;
+      margin-bottom: 10px;
+    }
+    .modal-content p, .code-content p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .close {
+      background-color: #ff3333;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .whatsapp-button-modal {
+      margin-top: 10px;
+      display: inline-block;
+      background-color: #25d366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .whatsapp-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      padding: 12px 16px;
+      font-weight: bold;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 10000;
+    }
+    .code-input {
+      background: #0d1117;
+      color: #fff;
+      padding: 14px;
+      width: 100%;
+      border: 1px solid #444;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .code-submit {
+      background-color: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 1rem;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>🛫 Lyon – Aviator Predictor (Free)</h2>
+  <div class="subtitle">🏆 HOME OF WINNINGS</div>  <div class="container">
+    <div class="predict-section">
+      <p>Enter the last 7 multipliers (e.g. 1.5, 2.0, 3.2...)</p>
+      <input id="input" placeholder="1.5, 2.1, 1.2, 3.0, 1.8, 2.5, 5.1" oninput="autoPredict()" />
+      <button onclick="requestCode()">🎯 Predict</button>
+      <button onclick="clearPrediction()" style="background:#ff4444; color:#fff; margin-top:10px;">Clear</button>
+      <div class="result" id="output"></div>
+    </div>
+    <div class="iframe-section">
+      <iframe id="webview" title="Betting Site"></iframe>
+    </div>
+  </div>  <script>
+    function clearPrediction() {
+      document.getElementById("input").value = "";
+      document.getElementById("output").innerHTML = "";
+    }
+  </script></body>
+</html>
