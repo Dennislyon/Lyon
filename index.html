@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Corlys Aviator Prediction Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Poppins', sans-serif;
+    }
+    .container {
+      padding: 2rem;
+      max-width: 700px;
+    }
+    .card {
+      background-color: #1e293b;
+      border: none;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .btn-custom {
+      background: linear-gradient(to right, #6366f1, #3b82f6);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+    .btn-custom:hover {
+      transform: scale(1.05);
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border-radius: 1rem;
+      margin-top: 1rem;
+      border: none;
+    }
+    #accessForm, #predictionCard {
+      display: none;
+    }
+    .error-box {
+      background: #ef4444;
+      color: white;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      margin-top: 1rem;
+      animation: shake 0.3s ease-in-out;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+    .platforms .btn {
+      background-color: #334155;
+      color: #f1f5f9;
+      border-radius: 0.5rem;
+      margin: 0.25rem 0;
+    }
+    .platforms .btn:hover {
+      background-color: #475569;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h1 class="mb-4">🚀 Corlys Aviator Prediction Bot</h1>
+    <button id="showAccessBtn" class="btn btn-custom btn-lg w-100 mb-4">🎯 Predict Next Multiplier</button>
+    <div id="accessForm" class="card">
+      <input type="text" id="accessCode" class="form-control mb-3" placeholder="Enter Access Code" />
+      <button id="submitCodeBtn" class="btn btn-primary w-100">Unlock Prediction</button>
+      <div id="accessError" class="error-box" style="display: none;">
+        <strong>❌ Invalid Code</strong>
+        <p>Send KES <strong>200</strong> to:</p>
+        <p>M-Pesa: <strong>0700527310</strong></p>
+        <button class="btn btn-light btn-sm mt-2" onclick="contactAdmin()">📩 WhatsApp Admin</button>
+      </div>
+    </div>
+    <div id="predictionCard" class="card mt-4">
+      <form id="predictionForm">
+        <input type="text" id="multiplierInput" class="form-control mb-3" placeholder="e.g. 1.2, 2.4, 1.8, 3.0, 2.1" />
+        <button type="submit" class="btn btn-success w-100">Get Prediction</button>
+      </form>
+      <div id="predictionResult" class="mt-3"></div>
+      <iframe id="bettingSite" src=""></iframe>
+    </div>
+    <div class="card mt-4">
+      <h5 class="mb-3">Choose Your Betting Platform</h5>
+      <div class="platforms">
+        <button class="btn w-100" data-url="https://www.betika.com">Betika</button>
+        <button class="btn w-100" data-url="https://www.odibets.com">Odibets</button>
+        <button class="btn w-100" data-url="https://www.sportpesa.com">SportPesa</button>
+        <button class="btn w-100" data-url="https://www.bangbet.co.ke">Bangbet</button>
+        <button class="btn w-100" data-url="https://www.mozzartbet.co.ke">Mozzartbet</button>
+        <button class="btn w-100" data-url="https://www.betpawa.co.ke">BetPawa</button>
+        <button class="btn w-100" data-url="https://www.bahatibet.com">Bahatibet</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const showAccessBtn = document.getElementById("showAccessBtn");
+    const accessForm = document.getElementById("accessForm");
+    const predictionCard = document.getElementById("predictionCard");
+    const submitCodeBtn = document.getElementById("submitCodeBtn");
+    const accessCodeInput = document.getElementById("accessCode");
+    const accessError = document.getElementById("accessError");
+    const predictionResult = document.getElementById("predictionResult");
+
+    showAccessBtn.addEventListener("click", () => {
+      accessForm.style.display = "block";
+      showAccessBtn.style.display = "none";
+    });
+
+    submitCodeBtn.addEventListener("click", () => {
+      const code = accessCodeInput.value.trim();
+      if (code === "Nm643PpQ") {
+        accessForm.style.display = "none";
+        predictionCard.style.display = "block";
+        accessError.style.display = "none";
+      } else {
+        accessError.style.display = "block";
+      }
+    });
+
+    function contactAdmin() {
+      window.open("https://wa.me/254700527310?text=Hello%20Admin,%20I%20sent%20KES%20200%20to%200700527310%20for%20the%20access%20code.", "_blank");
+    }
+
+    document.getElementById("predictionForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      predictionResult.innerHTML = "⏳ Predicting...";
+
+      const input = document.getElementById("multiplierInput").value;
+      const values = input.split(',').map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
+
+      if (values.length < 5) {
+        predictionResult.innerHTML = `<div class="text-warning">⚠️ Enter at least 5 valid numbers.</div>`;
+        return;
+      }
+
+      const len = values.length;
+      const slope = (values[len - 1] - values[0]) / (len - 1);
+      const next = values[len - 1] + slope;
+      const rangeLow = next - 0.3;
+      const rangeHigh = next + 0.3;
+
+      predictionResult.innerHTML = `<div class="alert alert-info text-dark">
+        📈 Predicted Multiplier Range: <strong>${rangeLow.toFixed(2)}x - ${rangeHigh.toFixed(2)}x</strong>
+      </div>`;
+    });
+
+    document.querySelectorAll("button[data-url]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const url = btn.getAttribute("data-url");
+        document.getElementById("bettingSite").src = url;
+      });
+    });
+  </script>
+</body>
+</html>
